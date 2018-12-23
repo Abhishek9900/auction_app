@@ -1,0 +1,54 @@
+{% extends 'bidapp/base.html' %}
+{% load staticfiles %}
+
+{% block title %}All Auctions{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <form method='GET' action='' class='row'>
+        <div class='col-sm-6'>
+            <div class='input-group'>
+                <input class='form-control' type='text' name='q' placeholder='Search by Title, Category' value='{{ request.GET.q }}'/>
+                <span class='input-group-btn'>
+                    <!-- <input class='btn btn-default' type='submit' value='Search' /> -->
+                    <button class='btn btn-default' type='submit'>Search <i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+        </form>
+    {% for auction_event in auction_page.object_list %}
+        <div class="contentitem{% if not forloop.last%} withbreak{% endif %}">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+            <h3><a href="{% url 'view_auction_event' auction_event.pk %}"><i class="fa fa-bullseye" aria-hidden="true"></i>&nbsp;{{ auction_event.item.title|title }}</a></h3>
+            <strong>Condition: </strong>{{ auction_event.item.condition }}<br />
+            <strong>Price: </strong>${{ auction_event.get_current_price }}<br />
+
+            <div class="posted">Being sold by: <span>{{ auction_event.item.seller.username }}</span></div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                <img class="img-responsive" src="{{ auction_event.item.image.url }}">
+                     </div>
+                </div>
+            <br><br>
+        </div>
+    {% empty %}
+        <p>No items listed.</p>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if auction_page.has_previous %}
+                <a href="?{{ page_request_var }}={{ auction_page.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ auction_page.number }} of {{ auction_page.paginator.num_pages }}.
+            </span>
+
+            {% if auction_page.has_next %}
+                <a href="?{{ page_request_var }}={{ auction_page.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            {% endif %}
+        </span>
+    </div>
+    </div>
+{% endblock %}

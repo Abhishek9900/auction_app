@@ -1,0 +1,14 @@
+{% extends "bidapp/base.html" %}
+{% load static from staticfiles %}
+
+{% block title %}Edit Profile {{ block.super }}{% endblock %}
+{% block body %}
+<h2> Edit profile </h2>
+<form method="POST" action='' enctype="multipart/form-data">
+      {% load bootstrap %}
+      {% csrf_token %}
+      {{ form|bootstrap }}
+    <input type="submit" class="btn btn-success" value="Save">
+</form>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'bidapp/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    {% for category in categories %}
+        <h2><a href="{% url 'view_category' category.pk %}"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;{{ category.title }}</a></h2>
+        <p>{{ category.description|safe }}</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "bidapp/base.html" %}
+{% load static from staticfiles %}
+
+{% block body %}
+    <form action="." method="post" enctype="multipart/form-data">
+        {% load bootstrap %}
+        {% csrf_token %}
+        {{ item_form|bootstrap }}
+        {{ auction_form|bootstrap }}
+        <input type="submit" class="btn btn-success" value="List Item" />
+    </form>
+{% endblock %}

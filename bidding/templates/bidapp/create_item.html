@@ -1,0 +1,14 @@
+{% extends "bidapp/base.html" %}
+{% load static from staticfiles %}
+
+{% block title %}Create Item {{ block.super }}{% endblock %}
+{% block body %}
+<h2> Create Item </h2>
+<form method="POST" action='' enctype="multipart/form-data">
+      {% load bootstrap %}
+      {% csrf_token %}
+      {{ form|bootstrap }}
+    <input type="submit" class="btn btn-success" value="create a profile">
+</form>
+
+{% endblock %}
